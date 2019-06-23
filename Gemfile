@@ -30,12 +30,14 @@ gem 'rack-cors'
 gem 'devise'
 gem 'devise-jwt'
 gem 'dotenv-rails'
+gem 'slugify'
 
 group :development, :test do
   gem 'pry-byebug'
   gem 'rspec-rails'
   gem 'fabrication'
   gem 'faker'
+  gem 'awesome_print'
 end
 
 group :development do

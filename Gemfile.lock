@@ -43,6 +43,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (9.0.0)
+    awesome_print (1.8.0)
     bcrypt (3.1.13)
     bootsnap (1.4.4)
       msgpack (~> 1.0)
@@ -176,6 +177,7 @@ GEM
       rspec-support (~> 3.8.0)
     rspec-support (3.8.2)
     ruby_dep (1.5.0)
+    slugify (1.0.7)
     spring (2.1.0)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -223,6 +225,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
   bootsnap (>= 1.1.0)
   devise
   devise-jwt
@@ -236,6 +239,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 5.2.3)
   rspec-rails
+  slugify
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data

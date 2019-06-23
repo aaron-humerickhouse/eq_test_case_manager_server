@@ -10,10 +10,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_22_172235) do
+ActiveRecord::Schema.define(version: 2019_06_23_050121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "access_assignments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "role_id", null: false
+    t.index ["role_id"], name: "index_access_assignments_on_role_id"
+    t.index ["user_id", "role_id"], name: "index_access_assignments_on_user_id_and_role_id", unique: true
+    t.index ["user_id"], name: "index_access_assignments_on_user_id"
+  end
+
+  create_table "access_operations", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "name", null: false
+    t.string "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_access_operations_on_key", unique: true
+    t.index ["name"], name: "index_access_operations_on_name", unique: true
+  end
+
+  create_table "access_permissions", force: :cascade do |t|
+    t.bigint "role_id", null: false
+    t.bigint "operation_id", null: false
+    t.index ["operation_id"], name: "index_access_permissions_on_operation_id"
+    t.index ["role_id", "operation_id"], name: "index_access_permissions_on_role_id_and_operation_id", unique: true
+    t.index ["role_id"], name: "index_access_permissions_on_role_id"
+  end
+
+  create_table "access_roles", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "name", null: false
+    t.string "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_access_roles_on_key", unique: true
+    t.index ["name"], name: "index_access_roles_on_name", unique: true
+  end
 
   create_table "jwt_blacklist", force: :cascade do |t|
     t.string "jti", null: false
