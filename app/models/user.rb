@@ -9,7 +9,8 @@ class User < ApplicationRecord
 
   def jwt_payload
     { 
-      email: self.email,
+      target_type: 'user',
+      target_id: self.id,
       role: ['role1', 'role2'],
       permissions: [
         'role1_permission1',
