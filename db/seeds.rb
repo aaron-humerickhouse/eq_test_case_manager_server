@@ -6,14 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Fabrication.configure do |config|
-  config.fabricator_path = 'data/fabricators'
-  config.path_prefix = Rails.root
-  config.sequence_start = 10000
-end
-
-Fabrication.manager.load_definitions
-
+puts 'Generating Seeds'
 
 # Roles
 superuser = Role.create(key: 'SUPERUSER', name: 'superuser', description: 'This role grants access to do everything system wide.')
@@ -130,34 +123,45 @@ admin.operations = [
 
 superuser.operations = Operation.all
 
-Fabricate(
-  :user, 
-  email: 'admin@example.com',
-  roles: [admin]
-)
+aaron = User.create(first_name: 'Aaron', last_name: 'Humerickhouse', email: 'aaron@humerickhouse.me', password: 'Test1234', password_confirmation: 'Test1234', confirmed_at: Time.now)
+aaron.roles = [superuser]
 
-Fabricate(
-  :user, 
-  email: 'superuser@example.com',
-  roles: [superuser]
-)
+unless Rails.env.production?
+  Fabrication.configure do |config|
+    config.fabricator_path = 'data/fabricators'
+    config.path_prefix = Rails.root
+    config.sequence_start = 10000
+  end
+  
+  Fabrication.manager.load_definitions
+  
+  Fabricate(
+    :user, 
+    email: 'admin@example.com',
+    roles: [admin]
+  )
 
-Fabricate(
-  :user, 
-  email: 'tester@example.com',
-  roles: [tester]
-)
+  Fabricate(
+    :user, 
+    email: 'superuser@example.com',
+    roles: [superuser]
+  )
 
-Fabricate(
-  :user, 
-  email: 'test_creator@example.com',
-  roles: [test_creator]
-)
+  Fabricate(
+    :user, 
+    email: 'tester@example.com',
+    roles: [tester]
+  )
 
-Fabricate(
-  :user, 
-  email: 'reporter@example.com',
-  roles: [reporter]
-)
+  Fabricate(
+    :user, 
+    email: 'test_creator@example.com',
+    roles: [test_creator]
+  )
 
-
+  Fabricate(
+    :user, 
+    email: 'reporter@example.com',
+    roles: [reporter]
+  )
+end
