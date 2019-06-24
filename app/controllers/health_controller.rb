@@ -1,5 +1,7 @@
 class HealthController < ApplicationController
+  respond_to :json
+
   def show
-    format.json { render status: :ok }
+    render status: :ok
   end
 end
