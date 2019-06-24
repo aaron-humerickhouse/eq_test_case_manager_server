@@ -7,22 +7,15 @@ class User < ApplicationRecord
          :jwt_authenticatable,
          jwt_revocation_strategy: JwtBlacklist
 
+  has_many :assignments
+  has_many :roles, :through => :assignments
+      
   def jwt_payload
     { 
-      target_type: 'user',
+      target_type: 'USER',
       target_id: self.id,
-      role: ['role1', 'role2'],
-      permissions: [
-        'role1_permission1',
-        'role1_permission2',
-        'role1_permission3',
-        'role1_permission4',
-        'role2_permission1',
-        'role2_permission2',
-        'role2_permission3',
-        'role2_permission4'
-      ]
+      roles: self.roles.map(&:key),
+      operations: self.roles.map(&:operations).flatten.map(&:key)
      }
-  end
-        
+  end   
 end
