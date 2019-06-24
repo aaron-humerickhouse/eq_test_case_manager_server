@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Users::UnlocksController < Devise::UnlocksController
+class Api::V1::Users::UnlocksController < Devise::UnlocksController
   respond_to :json
   
   # GET /resource/unlock/new
