@@ -3,4 +3,8 @@ class Permission < ApplicationRecord
   
   belongs_to :role
   belongs_to :operation
+
+  validates :role, presence: true
+  validates :operation, presence: true
+
 end

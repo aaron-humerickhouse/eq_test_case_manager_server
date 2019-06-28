@@ -8,6 +8,8 @@
 
 puts 'Generating Seeds'
 
+company = Company.create(name: 'ACME')
+
 # Roles
 superuser = Role.create(key: 'SUPERUSER', name: 'superuser', description: 'This role grants access to do everything system wide.')
 admin = Role.create(key: 'ADMIN', name: 'admin', description: 'This role grants access to do everything on a company basis.')
@@ -124,7 +126,7 @@ admin.operations = [
 superuser.operations = Operation.all
 
 aaron = User.create(first_name: 'Aaron', last_name: 'Humerickhouse', email: 'aaron@humerickhouse.me', password: 'Test1234', password_confirmation: 'Test1234', confirmed_at: Time.now)
-aaron.roles = [superuser]
+Assignment.create(user: aaron, role: superuser, company: company)
 
 unless Rails.env.production?
   Fabrication.configure do |config|
@@ -135,33 +137,33 @@ unless Rails.env.production?
   
   Fabrication.manager.load_definitions
   
-  Fabricate(
+  admin_user = Fabricate(
     :user, 
-    email: 'admin@example.com',
-    roles: [admin]
+    email: 'admin@example.com'
   )
+  Assignment.create(user: admin_user, role: admin, company: company)
 
-  Fabricate(
+  superuser_user = Fabricate(
     :user, 
-    email: 'superuser@example.com',
-    roles: [superuser]
+    email: 'superuser@example.com'
   )
+  Assignment.create(user: superuser_user, role: superuser, company: company)
 
-  Fabricate(
+  tester_user = Fabricate(
     :user, 
-    email: 'tester@example.com',
-    roles: [tester]
+    email: 'tester@example.com'
   )
+  Assignment.create(user: tester_user, role: tester, company: company)
 
-  Fabricate(
+  test_creator_user = Fabricate(
     :user, 
-    email: 'test_creator@example.com',
-    roles: [test_creator]
+    email: 'test_creator@example.com'
   )
+  Assignment.create(user: test_creator_user, role: test_creator, company: company)
 
-  Fabricate(
+  reporter_user = Fabricate(
     :user, 
-    email: 'reporter@example.com',
-    roles: [reporter]
+    email: 'reporter@example.com'
   )
+  Assignment.create(user: reporter_user, role: reporter, company: company)
 end
