@@ -8,8 +8,13 @@ class User < ApplicationRecord
          jwt_revocation_strategy: JwtBlacklist
 
   has_many :assignments
-  has_many :roles, :through => :assignments
-      
+  has_many :roles, through: :assignments
+  has_many :companies, through: :assignments
+
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :email, presence: true
+
   def jwt_payload
     { 
       target_type: 'USER',

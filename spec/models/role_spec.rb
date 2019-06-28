@@ -12,15 +12,15 @@ RSpec.describe Role, type: :model do
   end
 
   it 'requires key' do
-    expect { Fabricate(:role, key: nil) }.to raise_error(ActiveRecord::NotNullViolation)
+    expect { Fabricate(:role, key: nil) }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   it 'requires name' do
-    expect { Fabricate(:role, name: nil) }.to raise_error(ActiveRecord::NotNullViolation)
+    expect { Fabricate(:role, name: nil) }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   it 'requires description' do
-    expect { Fabricate(:role, description: nil) }.to raise_error(ActiveRecord::NotNullViolation)
+    expect { Fabricate(:role, description: nil) }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   it 'has operations' do

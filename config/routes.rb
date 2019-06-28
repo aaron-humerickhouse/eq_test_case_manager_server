@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :companies
   # TODO: make env variable
   default_url_options :host => ENV['HOST']
 
