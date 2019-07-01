@@ -18,9 +18,16 @@ jobs:
     - stage: test
       script: bundle exec rspec
       script: bundle exec rake pact:verify
+    - stage: publish
+      env: 
+        PUBLISH_VERIFICATION_RESULTS=true
+      script: echo $PUBLISH_VERIFICATION_RESULTS
+      script: bundle exec rake pact:verify
 
 stages:
   - test
+  - name: publish
+    if: branch = master
 
 env:
   global:
