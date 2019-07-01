@@ -34,6 +34,11 @@ module EqTestCaseManagerServer
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    # Custom directories with classes and modules you want to be autoloadable.
+    config.autoload_paths += %W(#{config.root}/serializers)
+    config.autoload_paths += %W(#{config.root}/app)
+    config.autoload_paths += %W(#{config.root}/lib)
+
     # TODO: figure out crsf origins
     config.middleware.insert_before 0, Rack::Cors do
       allow do

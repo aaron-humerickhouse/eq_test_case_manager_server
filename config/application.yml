@@ -1,0 +1,15 @@
+defaults: &defaults
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+  pact:
+    broker:
+      host: <%= ENV['PACT_BROKER_HOST'] %>
+      username: <%= ENV['PACT_BROKER_USERNAME'] %>
+      password: <%= ENV['PACT_BROKER_PASSWORD'] %>
+
+production:
+  <<: *defaults

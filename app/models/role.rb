@@ -9,5 +9,4 @@ class Role < ApplicationRecord
   validates :name, presence: true
   validates :key, presence: true
   validates :description, presence: true
-
 end

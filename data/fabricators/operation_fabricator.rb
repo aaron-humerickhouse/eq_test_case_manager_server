@@ -1,5 +1,7 @@
 Fabricator(:operation) do
-  name { Faker::Movies::PrincessBride.character }
+  name { sequence(:name) { |i| 
+    "#{Faker::Movies::PrincessBride.character}_#{i}@example.com" 
+  }}
   key { |attrs| attrs[:name]&.slugify&.upcase }
   description { Faker::Movies::PrincessBride.quote }
 end
