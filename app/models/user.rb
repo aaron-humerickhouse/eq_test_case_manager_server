@@ -17,10 +17,20 @@ class User < ApplicationRecord
 
   def jwt_payload
     { 
-      target_type: 'USER',
-      target_id: self.id,
-      roles: self.roles.map(&:key),
-      operations: self.roles.map(&:operations).flatten.map(&:key)
-     }
-  end   
+      principal_type: 'USER',
+      principal_id: self.id,
+      permissions: self.companies.map do |company|
+        {
+          company_id: company.id,
+          operations: operations_by_company(company)
+        }
+      end
+    }
+  end
+
+  private
+
+  def operations_by_company(company)
+    assignments.where(company: company).map(&:role).map(&:operations).flatten.map(&:key)
+  end
 end

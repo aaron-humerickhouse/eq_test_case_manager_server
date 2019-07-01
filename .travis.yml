@@ -6,15 +6,24 @@ before_install:
 before_script:
 - cp config/database.yml.travis config/database.yml
 - cp .env.travis .env
-- bundle exec rails db:create 
+- bundle exec rails db:create
 - bundle exec rails db:schema:load
 dist: trusty
 language: ruby
 rvm:
 - 2.5.5
-script:
-- bundle exec rspec
+
+jobs:
+  include:
+    - stage: test
+      script: bundle exec rspec
+      script: bundle exec rake pact:verify
+
+stages:
+  - test
+
 env:
   global:
-    - secure: J/zN5/Gh5MOqyZF4SagO8zHJ6N92WdS/LD49lyiJ3IU6NkdYyxWuHtwdDwAxP5OuX3xnFDoOKtCGaGmu5Y/pmZb7n/Ib4eDZYts5Jm57+/n0uNyc5mOpV8ipr34lObiUDqOdh0yu15gDqwG5wm7GtkB0NKpgdbJdobt/StMTYd6LhlVT8WTLBBkCyg7j3u3x1sJMJT5QfPzzgzFHxTtfd8gA9su8uhcSPqT+aywSJzGBa9L5sjtlY7kgke63ka7l4f6FASIZsKjOMkHqEZsjQiwKGCpNXao1iBtPoQy3KgP6Tfa171bWX7ygf7ROpTxE8TADSbADkmeCQZQWbm0OomAdnpf/dj8tJdNF/6oWDCyDqTLIT1ZKG7MQes61RRmzg8sPJplblk5dbq7gRhgAEUmQL6UnpYOC1Cr+Ax1Uu8/WtJ+KnxBqvHcoqGuYS4l+VUYC0fV8RhDzmV2ik6FmUmNirFvYyS2Y8AFSxEccWmlmaVb9bpJOev00YkDovWNq8ASWOcLPR/QjvVDkttmM6Z0/nT+eMMzWrYK+8MBvbWwDevO63zHkSwVK6nE7YDH8c75KZBzgU3zc/53KaCM4pFV3tY8BmHTSZojEip5UDA9kT5a4LbKMILAAmjhafNEDFmUutss75+UF+Ek+SsJSrkqP4Np/M8yFmPfXgcgUvmk=
-    - RAILS_ENV=test
+  - secure: J/zN5/Gh5MOqyZF4SagO8zHJ6N92WdS/LD49lyiJ3IU6NkdYyxWuHtwdDwAxP5OuX3xnFDoOKtCGaGmu5Y/pmZb7n/Ib4eDZYts5Jm57+/n0uNyc5mOpV8ipr34lObiUDqOdh0yu15gDqwG5wm7GtkB0NKpgdbJdobt/StMTYd6LhlVT8WTLBBkCyg7j3u3x1sJMJT5QfPzzgzFHxTtfd8gA9su8uhcSPqT+aywSJzGBa9L5sjtlY7kgke63ka7l4f6FASIZsKjOMkHqEZsjQiwKGCpNXao1iBtPoQy3KgP6Tfa171bWX7ygf7ROpTxE8TADSbADkmeCQZQWbm0OomAdnpf/dj8tJdNF/6oWDCyDqTLIT1ZKG7MQes61RRmzg8sPJplblk5dbq7gRhgAEUmQL6UnpYOC1Cr+Ax1Uu8/WtJ+KnxBqvHcoqGuYS4l+VUYC0fV8RhDzmV2ik6FmUmNirFvYyS2Y8AFSxEccWmlmaVb9bpJOev00YkDovWNq8ASWOcLPR/QjvVDkttmM6Z0/nT+eMMzWrYK+8MBvbWwDevO63zHkSwVK6nE7YDH8c75KZBzgU3zc/53KaCM4pFV3tY8BmHTSZojEip5UDA9kT5a4LbKMILAAmjhafNEDFmUutss75+UF+Ek+SsJSrkqP4Np/M8yFmPfXgcgUvmk=
+  - RAILS_ENV=test
+  - secure: Dtyq0Nq9FHsZV6qNyYc101mY8kGaH2eFryO4tOJF+TOZcOwUY7uXrbec+URwU+aIckoWFtC317ofssS14F5xP60tY+u3m7iKLuRpYjX5VwBNRDLAepsh/oI8h0d2/PSDyuEHAhqGqRf562XfqFk2RA/4z7sly8pVIoMRB8YItwjO+jg7nh0CxYUqBWmtrASgBr13WR+GlCDR4JqtAx5UAqhIq1JyH2fgESNofjt+lN9Vt9yr9auWPeAey7sHpZ7YK7R19oydcWfTKiqx8Ll26iukC6v+j9EgDoWz7iPssNgWj5yZauIRvS4VJMsLc3pGdmsxAPuuZlP/UfkbXzjM6eYkPbPeJNee5oYDwXHl5fSbsJFadnrZCMAoyNhjfsjtpdt+mCGdAU24sJeNsFBalm4CkzPrswChU9um7DrClZ8vMdzxdooEM/Owgvdr3A4zOEjt7qeG22tz5xzIhj7EjtID3b5QmOqdTtO7ncZTHOeK8TWs588mrU3DMOik37DFdA6sjsRh77bLIAqNkgv2IG9zd7uuqAduIyzR0JEfyk9ELNKPYoQp69sJzBaZbmaxJAniaa4zQdaxwGkaY2iKyA4urmpgQuqfZP9/mCMcwO3cv28yr3BoW4H33XO5FVHUStiPDJtY86KgMdsNNMaS8wfi4BkYDyt9FL0aozVA2Xs=

@@ -9,24 +9,43 @@ RSpec.describe User, type: :model do
     expect(user.roles).to eq [role]
   end
 
+  it 'can have companies' do
+    assignment = Fabricate(:assignment)
+    company = assignment.company
+    user = assignment.user
+
+    expect(user.companies).to eq [company]
+  end
+
   describe '#jwt_payload' do
-    let(:user) { Fabricate.build(:user) }
-    let(:assignment) { Fabricate.build(:assignment, user: user) }
-    let!(:permission) { Fabricate.build(:permission, role: assignment.role) }
+    let(:company_1) { Fabricate(:company) }
+    let(:company_2) { Fabricate(:company) }
+    let(:user) { Fabricate(:user) }
+    let(:assignment_1) { Fabricate(:assignment, user: user, company: company_1) }
+    let(:assignment_2) { Fabricate(:assignment, user: user, company: company_2) }
+    let!(:permission_1) { Fabricate(:permission, role: assignment_1.role) }
+    let!(:permission_2) { Fabricate(:permission, role: assignment_2.role) }
 
     subject { user.jwt_payload }
 
-    it 'includes target_type and id' do
-      expect(subject[:target_type]).to eq 'USER'
-      expect(subject[:target_id]).to eq user.id
+    it 'includes principal_type and principal_id' do
+      expect(subject[:principal_type]).to eq 'USER'
+      expect(subject[:principal_id]).to eq user.id
     end
 
-    it 'includes roles' do
-      expect(subject[:roles].sort).to eq user.roles.map(&:key).sort
-    end
 
-    it 'includes operations' do
-      expect(subject[:operations].sort).to eq user.roles.map(&:operations).flatten.map(&:key).sort
+    it 'includes permissions' do
+      expected_permissions = [
+        {
+          company_id: company_1.id,
+          operations: [permission_1.operation.key]
+        },
+        {
+          company_id: company_2.id,
+          operations: [permission_2.operation.key]
+        }
+      ]
+      expect(subject[:permissions]).to eq expected_permissions
     end
   end
 end
