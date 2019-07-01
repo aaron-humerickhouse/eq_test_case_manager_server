@@ -10,6 +10,7 @@ before_script:
 - bundle exec rails db:schema:load
 dist: trusty
 language: ruby
+cache: bundler
 rvm:
 - 2.5.5
 
@@ -17,17 +18,10 @@ jobs:
   include:
     - stage: test
       script: bundle exec rspec
-      script: bundle exec rake pact:verify
-    - stage: publish
-      env: 
-        PUBLISH_VERIFICATION_RESULTS=true
-      script: echo $PUBLISH_VERIFICATION_RESULTS
-      script: bundle exec rake pact:verify
-
+      script: sh .travis/pact_verify.sh
+        
 stages:
   - test
-  - name: publish
-    if: branch = master
 
 env:
   global:
