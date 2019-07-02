@@ -22,4 +22,4 @@
 * Ask a question on stackoverflow and tag it `pact-ruby`
 
 
-Tried to retrieve diff with previous pact from https://eq-pact-broker.herokuapp.com/pacts/provider/EQ%20-%20TCM%20Server/consumer/EQ%20-%20TCM%20UI/version/87c2d7c6d5370e3f65d820e174f0614899e19a32/diff/previous-distinct, but received response code 401 Unauthorized.
+Tried to retrieve diff with previous pact from https://eq-pact-broker.herokuapp.com/pacts/provider/EQ%20-%20TCM%20Server/consumer/EQ%20-%20TCM%20UI/version/93e8c70f4d83dfea1676b1d972d353514b07b537/diff/previous-distinct, but received response code 401 Unauthorized.

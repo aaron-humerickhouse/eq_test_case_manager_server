@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  resources :companies
   # TODO: make env variable
-  default_url_options :host => ENV['HOST']
+  default_url_options host: ENV['HOST']
 
   devise_for :users,
              path: 'api/v1/users',
@@ -18,7 +19,13 @@ Rails.application.routes.draw do
                confirmations: 'api/v1/users/confirmations'
              }
 
+  scope module: 'api', path: 'api' do
+    scope module: 'v1', path: 'v1' do
+      resources :companies
+    end
+  end
+
   get '/health', to: 'health#show'
-  
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

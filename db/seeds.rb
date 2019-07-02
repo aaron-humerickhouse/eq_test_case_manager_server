@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
@@ -125,44 +127,44 @@ admin.operations = [
 
 superuser.operations = Operation.all
 
-aaron = User.create(first_name: 'Aaron', last_name: 'Humerickhouse', email: 'aaron@humerickhouse.me', password: 'Test1234', password_confirmation: 'Test1234', confirmed_at: Time.now)
+aaron = User.create(first_name: 'Aaron', last_name: 'Humerickhouse', email: 'aaron@humerickhouse.me', password: 'Test1234', password_confirmation: 'Test1234', confirmed_at: Time.zone.now)
 Assignment.create(user: aaron, role: superuser, company: company)
 
 unless Rails.env.production?
   Fabrication.configure do |config|
     config.fabricator_path = 'data/fabricators'
     config.path_prefix = Rails.root
-    config.sequence_start = 10000
+    config.sequence_start = 10_000
   end
-  
+
   Fabrication.manager.load_definitions
-  
+
   admin_user = Fabricate(
-    :user, 
+    :user,
     email: 'admin@example.com'
   )
   Assignment.create(user: admin_user, role: admin, company: company)
 
   superuser_user = Fabricate(
-    :user, 
+    :user,
     email: 'superuser@example.com'
   )
   Assignment.create(user: superuser_user, role: superuser, company: company)
 
   tester_user = Fabricate(
-    :user, 
+    :user,
     email: 'tester@example.com'
   )
   Assignment.create(user: tester_user, role: tester, company: company)
 
   test_creator_user = Fabricate(
-    :user, 
+    :user,
     email: 'test_creator@example.com'
   )
   Assignment.create(user: test_creator_user, role: test_creator, company: company)
 
   reporter_user = Fabricate(
-    :user, 
+    :user,
     email: 'reporter@example.com'
   )
   Assignment.create(user: reporter_user, role: reporter, company: company)

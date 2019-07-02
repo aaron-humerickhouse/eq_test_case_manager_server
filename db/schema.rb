@@ -15,45 +15,19 @@ ActiveRecord::Schema.define(version: 2019_06_27_231624) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "access_assignments", force: :cascade do |t|
+  create_table "assignments", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "role_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "company_id", null: false
-    t.index ["role_id"], name: "index_access_assignments_on_role_id"
-    t.index ["user_id", "role_id", "company_id"], name: "index_access_assignments_on_user_id_and_role_id_and_company_id", unique: true
-    t.index ["user_id"], name: "index_access_assignments_on_user_id"
-  end
-
-  create_table "access_operations", force: :cascade do |t|
-    t.string "key", null: false
-    t.string "name", null: false
-    t.string "description", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["key"], name: "index_access_operations_on_key", unique: true
-    t.index ["name"], name: "index_access_operations_on_name", unique: true
-  end
-
-  create_table "access_permissions", force: :cascade do |t|
-    t.bigint "role_id", null: false
-    t.bigint "operation_id", null: false
-    t.index ["operation_id"], name: "index_access_permissions_on_operation_id"
-    t.index ["role_id", "operation_id"], name: "index_access_permissions_on_role_id_and_operation_id", unique: true
-    t.index ["role_id"], name: "index_access_permissions_on_role_id"
-  end
-
-  create_table "access_roles", force: :cascade do |t|
-    t.string "key", null: false
-    t.string "name", null: false
-    t.string "description", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["key"], name: "index_access_roles_on_key", unique: true
-    t.index ["name"], name: "index_access_roles_on_name", unique: true
+    t.index ["role_id"], name: "index_assignments_on_role_id"
+    t.index ["user_id", "role_id", "company_id"], name: "index_assignments_on_user_id_and_role_id_and_company_id", unique: true
+    t.index ["user_id"], name: "index_assignments_on_user_id"
   end
 
   create_table "companies", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_companies_on_name", unique: true
@@ -61,7 +35,39 @@ ActiveRecord::Schema.define(version: 2019_06_27_231624) do
 
   create_table "jwt_blacklist", force: :cascade do |t|
     t.string "jti", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["jti"], name: "index_jwt_blacklist_on_jti"
+  end
+
+  create_table "operations", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "name", null: false
+    t.string "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_operations_on_key", unique: true
+    t.index ["name"], name: "index_operations_on_name", unique: true
+  end
+
+  create_table "permissions", force: :cascade do |t|
+    t.bigint "role_id", null: false
+    t.bigint "operation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["operation_id"], name: "index_permissions_on_operation_id"
+    t.index ["role_id", "operation_id"], name: "index_permissions_on_role_id_and_operation_id", unique: true
+    t.index ["role_id"], name: "index_permissions_on_role_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "name", null: false
+    t.string "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_roles_on_key", unique: true
+    t.index ["name"], name: "index_roles_on_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -92,5 +98,5 @@ ActiveRecord::Schema.define(version: 2019_06_27_231624) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
-  add_foreign_key "access_assignments", "companies"
+  add_foreign_key "assignments", "companies"
 end

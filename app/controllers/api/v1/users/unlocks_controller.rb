@@ -1,32 +1,39 @@
 # frozen_string_literal: true
 
-class Api::V1::Users::UnlocksController < Devise::UnlocksController
-  respond_to :json
-  
-  # GET /resource/unlock/new
-  # def new
-  #   super
-  # end
+module Api
+  module V1
+    module Users
+      # Controller for User Unlocks
+      class UnlocksController < Devise::UnlocksController
+        respond_to :json
 
-  # POST /resource/unlock
-  # def create
-  #   super
-  # end
+        # GET /resource/unlock/new
+        # def new
+        #   super
+        # end
 
-  # GET /resource/unlock?unlock_token=abcdef
-  # def show
-  #   super
-  # end
+        # POST /resource/unlock
+        # def create
+        #   super
+        # end
 
-  # protected
+        # GET /resource/unlock?unlock_token=abcdef
+        # def show
+        #   super
+        # end
 
-  # The path used after sending unlock password instructions
-  # def after_sending_unlock_instructions_path_for(resource)
-  #   super(resource)
-  # end
+        # protected
 
-  # The path used after unlocking the resource
-  # def after_unlock_path_for(resource)
-  #   super(resource)
-  # end
+        # The path used after sending unlock password instructions
+        # def after_sending_unlock_instructions_path_for(resource)
+        #   super(resource)
+        # end
+
+        # The path used after unlocking the resource
+        # def after_unlock_path_for(resource)
+        #   super(resource)
+        # end
+      end
+    end
+  end
 end

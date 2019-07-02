@@ -1,0 +1,79 @@
+require: rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 2.5
+  Exclude:
+    - spec/**/*
+    - bin/**/*
+    - db/migrate/*
+    - db/schema.rb
+    - db/seeds.rb
+    - tmp/**/*
+    - log/**/*
+    - config/application.rb
+    - config/initializers/devise.rb
+    - lib/tasks/**/*
+    - lib/seeds/**/*
+    - node_modules/**/*
+    - vendor/**/*
+
+####################################################################################################
+# Complexity/spacing settings
+####################################################################################################
+
+Metrics/PerceivedComplexity:
+  Max: 26
+
+Metrics/AbcSize:
+  Max: 157
+
+Metrics/BlockNesting:
+  Max: 4
+
+Metrics/ClassLength:
+  Max: 406
+
+Metrics/CyclomaticComplexity:
+  Max: 24
+
+Metrics/MethodLength:
+  Max: 88
+
+Metrics/ModuleLength:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+####################################################################################################
+# General exclusions
+####################################################################################################
+
+# we do DI in ruby, so this is not applicable
+Metrics/ParameterLists:
+  Enabled: false
+
+# Subjective reasons for array vs %I syntax
+Style/SymbolArray:
+  Enabled: false
+
+# Subjective reasons for array vs %w syntax
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
+# Ruby has issues comparing class types in case statements
+Style/EmptyCaseCondition:
+  Enabled: false
+
+# There are disagreements around this cop and alias_method is often the proper way to go because of scoping issues
+Style/Alias:
+  Enabled: false
+
+Rails/NotNullColumn:
+  Enabled: false
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false

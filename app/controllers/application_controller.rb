@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Base controller all others inherit from
 class ApplicationController < ActionController::API
   # TODO: turn on when things are working
   # before_action :authenticate_user!

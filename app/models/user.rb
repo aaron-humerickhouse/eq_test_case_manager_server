@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# Model for User
+# A user is able to login and has roles
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   #  and :omniauthable
@@ -16,10 +20,10 @@ class User < ApplicationRecord
   validates :email, presence: true
 
   def jwt_payload
-    { 
+    {
       principal_type: 'USER',
-      principal_id: self.id,
-      permissions: self.companies.map do |company|
+      principal_id: id,
+      permissions: companies.map do |company|
         {
           company_id: company.id,
           operations: operations_by_company(company)

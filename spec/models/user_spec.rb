@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
@@ -32,7 +34,6 @@ RSpec.describe User, type: :model do
       expect(subject[:principal_type]).to eq 'USER'
       expect(subject[:principal_id]).to eq user.id
     end
-
 
     it 'includes permissions' do
       expected_permissions = [

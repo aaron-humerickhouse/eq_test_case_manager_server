@@ -1,10 +1,14 @@
+# frozen_string_literal: true
+
 class CreatePermissions < ActiveRecord::Migration[5.2]
   def change
-    create_table :access_permissions do |t|
+    create_table :permissions do |t|
       t.references :role, null: false, index: true
       t.references :operation, null: false, index: true
+
+      t.timestamps
     end
-    
-    add_index :access_permissions, [:role_id, :operation_id], unique: true
+
+    add_index :permissions, %i[role_id operation_id], unique: true
   end
 end

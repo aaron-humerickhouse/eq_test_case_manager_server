@@ -1,30 +1,31 @@
-require "rails_helper"
+# frozen_string_literal: true
 
-RSpec.describe CompaniesController, type: :routing do
-  describe "routing" do
-    it "routes to #index" do
-      expect(:get => "/companies").to route_to("companies#index")
+require 'rails_helper'
+
+RSpec.describe Api::V1::CompaniesController, type: :routing do
+  describe 'routing' do
+    it 'routes to #index' do
+      expect(get: '/api/v1/companies').to route_to('api/v1/companies#index')
     end
 
-    it "routes to #show" do
-      expect(:get => "/companies/1").to route_to("companies#show", :id => "1")
+    it 'routes to #show' do
+      expect(get: '/api/v1/companies/1').to route_to('api/v1/companies#show', id: '1')
     end
 
-
-    it "routes to #create" do
-      expect(:post => "/companies").to route_to("companies#create")
+    it 'routes to #create' do
+      expect(post: '/api/v1/companies').to route_to('api/v1/companies#create')
     end
 
-    it "routes to #update via PUT" do
-      expect(:put => "/companies/1").to route_to("companies#update", :id => "1")
+    it 'routes to #update via PUT' do
+      expect(put: '/api/v1/companies/1').to route_to('api/v1/companies#update', id: '1')
     end
 
-    it "routes to #update via PATCH" do
-      expect(:patch => "/companies/1").to route_to("companies#update", :id => "1")
+    it 'routes to #update via PATCH' do
+      expect(patch: '/api/v1/companies/1').to route_to('api/v1/companies#update', id: '1')
     end
 
-    it "routes to #destroy" do
-      expect(:delete => "/companies/1").to route_to("companies#destroy", :id => "1")
+    it 'routes to #destroy' do
+      expect(delete: '/api/v1/companies/1').to route_to('api/v1/companies#destroy', id: '1')
     end
   end
 end

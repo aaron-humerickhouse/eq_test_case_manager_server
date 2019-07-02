@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class CreateRoles < ActiveRecord::Migration[5.2]
   def change
-    create_table :access_roles do |t|
+    create_table :roles do |t|
       t.string :key, null: false
       t.string :name, null: false
       t.string :description, null: false
@@ -8,7 +10,7 @@ class CreateRoles < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    add_index :access_roles, :key, unique: true
-    add_index :access_roles, :name, unique: true
+    add_index :roles, :key, unique: true
+    add_index :roles, :name, unique: true
   end
 end

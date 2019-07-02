@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'login', type: :request do
@@ -26,7 +28,7 @@ describe 'login', type: :request do
     end
 
     it 'returns valid JWT token' do
-      token_from_request = response.headers['Authorization'].split(' ').last 
+      token_from_request = response.headers['Authorization'].split(' ').last
       decoded_token = JWT.decode(token_from_request, ENV['DEVISE_JWT_SECRET_KEY'], true)
       expect(decoded_token.first['sub']).to be_present
     end
@@ -34,7 +36,7 @@ describe 'login', type: :request do
 
   context 'when login params are incorrect' do
     before { post url }
-    
+
     it 'returns unathorized status' do
       expect(response.status).to eq 401
     end

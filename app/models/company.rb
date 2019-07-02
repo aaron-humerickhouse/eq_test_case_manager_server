@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Model for Company
 class Company < ApplicationRecord
   has_many :assignments
   has_many :users, through: :assignments

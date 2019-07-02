@@ -1,6 +1,7 @@
-class Assignment < ApplicationRecord
-  self.table_name = :access_assignments
+# frozen_string_literal: true
 
+# Joins model between user, role, and company
+class Assignment < ApplicationRecord
   belongs_to :user
   belongs_to :role
   belongs_to :company

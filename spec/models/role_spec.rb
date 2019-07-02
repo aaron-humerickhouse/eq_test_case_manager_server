@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Role, type: :model do
   let(:role) { Fabricate(:role) }
-  
+
   it 'has a unique constraint on key' do
     expect { Fabricate(:role, key: role.key) }.to raise_error(ActiveRecord::RecordNotUnique)
   end

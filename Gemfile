@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -26,27 +28,29 @@ gem 'puma', '~> 3.11'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-gem 'rack-cors'
 gem 'devise'
 gem 'devise-jwt'
 gem 'dotenv-rails'
-gem 'slugify'
+gem 'rack-cors'
+gem 'rubocop-rails'
 gem 'settingslogic'
+gem 'slugify'
 
 group :development, :test do
-  gem 'pry-byebug'
-  gem 'rspec-rails'
+  gem 'awesome_print'
+  gem 'bundler-audit'
   gem 'fabrication'
   gem 'faker'
-  gem 'awesome_print'
+  gem 'pry-byebug'
+  gem 'rspec-rails'
 end
 
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'pact'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'pact'
 end
 
 group :test do
